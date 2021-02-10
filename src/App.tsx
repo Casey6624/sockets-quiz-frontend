@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+// views
+import Room from "./views/Room";
 
 function App() {
+  const [email, setEmail] = useState("");
+  const [go, setGo] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          {!go ? (
+            <div>
+              <h1>Get Started!</h1>
+              <input type="text" onChange={(e) => setEmail(e.target.value)} />
+              <button onClick={() => setGo(true)}>Lets Go!</button>
+            </div>
+          ) : (
+            <Redirect to="/t35t-r00m" />
+          )}
+        </Route>
+        <Route exact path="/:roomId">
+          {go && email.trim() !== "" && <Room email={email} />}
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
