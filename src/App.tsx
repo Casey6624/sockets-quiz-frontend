@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 function App() {
-  const [email, setEmail] = useState("");
+  const [nickname, setNickname] = useState("");
   const [go, setGo] = useState(false);
   return (
     <Container>
@@ -25,13 +25,17 @@ function App() {
         <Switch>
           <Route exact path="/">
             {!go ? (
-              <Home setGo={setGo} setEmail={setEmail} />
+              <Home
+                setGo={setGo}
+                setNickname={setNickname}
+                nickname={nickname}
+              />
             ) : (
               <Redirect to="/t35t-r00m" />
             )}
           </Route>
           <Route exact path="/:roomId">
-            {go && email.trim() !== "" && <Room email={email} />}
+            {go && nickname.trim() !== "" && <Room nickname={nickname} />}
           </Route>
         </Switch>
       </Router>
