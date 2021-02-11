@@ -37,6 +37,7 @@ export const useChat = (roomId: string, emailAddress: string) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
       body: messageBody,
       senderId: socketRef.current.id,
+      email: emailAddress,
     });
   };
 

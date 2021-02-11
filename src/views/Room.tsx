@@ -19,13 +19,11 @@ export default function Room({ email }: Props) {
     sendMessage(userMessage);
     setUserMessage("");
   }
-
+  // send new messages and retrieve new messages
   useEffect(() => {
-    if (!messages) return;
+    if (!messages || messages.length === 0) return;
     const temp: any = [...allMessages];
     temp.push(messages[messages.length - 1]);
-    console.log("message", messages);
-    console.log(allMessages);
     setAllMessages(temp);
   }, [messages]);
 
@@ -34,13 +32,15 @@ export default function Room({ email }: Props) {
       <h1>Welcome to room {roomId}</h1>
       <div>
         {allMessages.length > 0 &&
-          allMessages.map((msg: { body: string; senderId: string }) => {
-            return (
-              <p>
-                <strong>{msg?.senderId || ""}</strong> says: {msg?.body || ""}
-              </p>
-            );
-          })}
+          allMessages.map(
+            (msg: { body: string; senderId: string; email: string }) => {
+              return (
+                <p>
+                  <strong>{msg?.email || ""}</strong> says: {msg?.body || ""}
+                </p>
+              );
+            }
+          )}
         <div>
           <input
             type="text"
